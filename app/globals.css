@@ -2,6 +2,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --rich-black: #111111;
+  --dark-gray: #374151;
+  --medium-gray: #6b7280;
+  --soft-gray: #9ca3af;
+  --light-gray: #d1d5db;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
