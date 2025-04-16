@@ -28,7 +28,7 @@ const AuthForm = () => {
         return;
       }
 
-      router.push("/dashboard");
+      router.push("/notes");
     }
 
     if (mode === "login") {
@@ -42,7 +42,7 @@ const AuthForm = () => {
         return;
       }
 
-      router.push("/dashboard");
+      router.push("/notes");
     }
   };
 
