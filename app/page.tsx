@@ -1,5 +1,7 @@
+import { redirect } from "next/navigation";
+
 const Home = () => {
-  return <h1>home</h1>;
+  redirect("/auth");
 };
 
 export default Home;
