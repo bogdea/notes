@@ -1,14 +1,29 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
-const Home = async () => {
-  const user = await supabase.auth.getUser();
+const Home = () => {
+  const router = useRouter();
 
-  if (!user) {
-    redirect("/auth");
-  } else {
-    redirect("/notes");
-  }
+  useEffect(() => {
+    const checkUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        router.push("/notes");
+      } else {
+        router.push("/auth");
+      }
+    };
+
+    checkUser();
+  }, []);
+
+  return null;
 };
 
 export default Home;
