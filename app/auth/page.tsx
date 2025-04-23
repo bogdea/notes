@@ -1,25 +1,13 @@
-"use client";
-
 import AuthForm from "@/components/AuthForm";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { redirect } from "next/navigation";
 
-const Auth = () => {
-  const router = useRouter();
+const Auth = async () => {
+  const user = await supabase.auth.getUser();
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (user) {
-        router.push("/notes");
-      }
-    };
-    checkUser();
-  }, []);
+  if (user) {
+    redirect("/notes");
+  }
 
   return (
     <div>
