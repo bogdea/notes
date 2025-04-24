@@ -1,5 +1,11 @@
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "notes",
+  description: "your notes",
+};
 
 export default async function NotesLayout({
   children,

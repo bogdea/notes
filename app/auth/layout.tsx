@@ -1,4 +1,10 @@
 import { Toaster } from "@/components/ui/sonner";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "auth",
+  description: "access your notes",
+};
 
 export default function AuthLayout({
   children,
