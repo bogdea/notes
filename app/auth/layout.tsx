@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "auth",
-  description: "access your notes",
+  description: "log in or sign up to start writing notes",
 };
 
 export default function AuthLayout({
