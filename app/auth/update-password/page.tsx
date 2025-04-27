@@ -2,10 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const UpdatePassword = () => {
+  const router = useRouter();
+
   const [newPassword, setNewPassword] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,6 +23,7 @@ const UpdatePassword = () => {
 
     setNewPassword("");
     toast.success("password updated");
+    router.push("/auth");
   };
 
   return (
