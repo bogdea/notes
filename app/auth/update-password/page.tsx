@@ -23,7 +23,7 @@ const UpdatePassword = () => {
 
     setNewPassword("");
     toast.success("password updated");
-    router.push("/auth");
+    router.push("/notes");
   };
 
   return (
