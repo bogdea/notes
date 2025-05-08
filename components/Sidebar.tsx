@@ -18,6 +18,7 @@ const Sidebar = () => {
   const pathname = usePathname();
   const params = useParams();
   const activeNoteId = params?.noteId as string;
+  const isNoteOpen = pathname.startsWith("/notes/") && pathname !== "/notes";
 
   useEffect(() => {
     const fetchUserNotes = async () => {
@@ -43,7 +44,9 @@ const Sidebar = () => {
   }, [pathname]);
 
   return (
-    <div className="h-full min-w-[400px] overflow-auto border-r border-[var(--light-gray)] px-3 pt-2">
+    <div
+      className={`${isNoteOpen ? "hidden h-full overflow-auto border-r border-[var(--light-gray)] px-3 pt-2 md:block md:min-w-[300px] lg:min-w-[400px]" : "h-full w-full overflow-auto border-r border-[var(--light-gray)] px-3 pt-2 md:block md:w-auto md:min-w-[300px] lg:min-w-[400px]"}`}
+    >
       {notes.map((note) => (
         <Link key={note.id} href={`/notes/${note.id}`}>
           <NoteCard

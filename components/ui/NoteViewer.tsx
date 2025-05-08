@@ -4,7 +4,7 @@ import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState, useCallback, useRef } from "react";
 import debounce from "lodash.debounce";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type NoteViewerProps = {
   initialTitle?: string;
@@ -24,6 +24,13 @@ const NoteViewer = ({
 
   const titleRef = useRef<HTMLTextAreaElement | null>(null);
   const bodyRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const pathname = usePathname();
+  const isNoteOpen = pathname.startsWith("/notes/") && pathname !== "/notes";
+
+  const handleGoBack = () => {
+    router.push("/notes");
+  };
 
   useEffect(() => {
     const resize = (el: HTMLTextAreaElement | null) => {
@@ -143,23 +150,24 @@ const NoteViewer = ({
   };
 
   return (
-    <div className="flex flex-col p-8">
-      <div className="flex items-start justify-between">
-        <textarea
-          ref={titleRef}
-          value={title}
-          onInput={(e) => {
-            const input = e.currentTarget.value.replace(/\n/g, "");
-            setTitle(input);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              bodyRef.current?.focus();
-            }
-          }}
-          className="w-full resize-none overflow-hidden bg-transparent text-2xl leading-5 font-semibold outline-none"
-        />
+    <div className={`${isNoteOpen ? "block p-8" : "hidden p-8 md:block"}`}>
+      <div className="mb-8 flex items-center justify-between md:hidden">
+        <div>
+          <button
+            className="flex cursor-pointer space-x-1 text-[14px]"
+            onClick={handleGoBack}
+          >
+            <Image
+              src={"/icons/back.svg"}
+              height={16}
+              width={16}
+              alt={"add"}
+              className="mt-0.5 cursor-pointer"
+            />
+            go back
+          </button>
+        </div>
+
         <div className="flex gap-2">
           <Image
             src={"/icons/add.svg"}
@@ -179,16 +187,54 @@ const NoteViewer = ({
           />
         </div>
       </div>
-      <textarea
-        ref={bodyRef}
-        value={content}
-        onInput={(e) => {
-          setContent(e.currentTarget.value);
-          e.currentTarget.style.height = "auto";
-          e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
-        }}
-        className="w-full resize-none overflow-hidden bg-transparent text-[16px] leading-relaxed font-normal text-[var(--gray)] outline-none"
-      />
+      <div className="flex flex-col">
+        <div className="flex items-start justify-between">
+          <textarea
+            ref={titleRef}
+            value={title}
+            onInput={(e) => {
+              const input = e.currentTarget.value.replace(/\n/g, "");
+              setTitle(input);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                bodyRef.current?.focus();
+              }
+            }}
+            className="w-full resize-none overflow-hidden bg-transparent text-2xl leading-5 font-semibold outline-none"
+          />
+
+          <div className="hidden gap-2 md:flex">
+            <Image
+              src={"/icons/add.svg"}
+              height={20}
+              width={20}
+              alt={"add"}
+              className="mt-0.5 cursor-pointer"
+              onClick={handleCreateNewNote}
+            />
+            <Image
+              src={"/icons/delete.svg"}
+              height={20}
+              width={20}
+              alt={"delete"}
+              className="cursor-pointer"
+              onClick={handleDelete}
+            />
+          </div>
+        </div>
+        <textarea
+          ref={bodyRef}
+          value={content}
+          onInput={(e) => {
+            setContent(e.currentTarget.value);
+            e.currentTarget.style.height = "auto";
+            e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
+          }}
+          className="w-full resize-none overflow-hidden bg-transparent text-[16px] leading-relaxed font-normal text-[var(--gray)] outline-none"
+        />
+      </div>
     </div>
   );
 };

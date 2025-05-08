@@ -21,11 +21,11 @@ const Notes = () => {
           .eq("user_id", user.id)
           .order("created_at", { ascending: false });
 
-        if (notes && notes.length > 0) {
-          router.push(`/notes/${notes[0].id}`);
-        } else {
-          router.push("/notes");
-        }
+        // if (notes && notes.length > 0) {
+        //   router.push(`/notes/${notes[0].id}`);
+        // } else {
+        //   router.push("/notes");
+        // }
       } else {
         router.push("/auth");
       }
