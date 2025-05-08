@@ -15,7 +15,7 @@ export default async function NotesLayout({
   return (
     <div className="flex h-screen flex-col">
       <Topbar />
-      <div className="w-full overflow-hidden md:flex">
+      <div className="h-screen w-full overflow-hidden md:flex">
         <Sidebar />
         <div className="w-full overflow-auto">{children}</div>
       </div>
