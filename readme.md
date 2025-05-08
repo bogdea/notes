@@ -8,6 +8,7 @@ a minimalist notes app
 - real-time auto-save
 - user auth (email + password)
 - sidebar with previews
+- responsive layout
 - minimalist light ui
 
 ## tech stack
