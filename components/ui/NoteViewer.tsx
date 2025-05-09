@@ -150,7 +150,7 @@ const NoteViewer = ({
   };
 
   return (
-    <div className={`${isNoteOpen ? "block p-5" : "hidden md:block"}`}>
+    <div className={`${isNoteOpen ? "block p-5" : "hidden p-5 md:block"}`}>
       <div className="mb-8 flex items-center justify-between md:hidden">
         <div>
           <button
