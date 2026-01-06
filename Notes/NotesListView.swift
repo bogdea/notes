@@ -23,15 +23,19 @@ var notes: [Note] = [
 struct NotesListView: View {
     var body: some View {
         List(notes) { note in
-            VStack(alignment: .leading) {
-                Text(note.title)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-                Text(note.content)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+            NavigationLink {
+                NoteDetailView(note: note)
+            } label: {
+                VStack(alignment: .leading) {
+                    Text(note.title)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                    Text(note.content)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
             }
-        }
+        }.navigationTitle("Notes")
     }
 }
 
