@@ -7,30 +7,20 @@
 
 import SwiftUI
 
-var notes: [Note] = [
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-    Note(title: "Untitled", content: "Empty"),
-]
-
 struct NotesListView: View {
+    @FetchRequest(sortDescriptors: [])
+    private var notes: FetchedResults<Note>
+
     var body: some View {
         List(notes) { note in
             NavigationLink {
                 NoteDetailView(note: note)
             } label: {
                 VStack(alignment: .leading) {
-                    Text(note.title)
+                    Text(note.title ?? "Untitled")
                         .font(.headline)
                         .foregroundStyle(.primary)
-                    Text(note.content)
+                    Text(note.content ?? "No content")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }

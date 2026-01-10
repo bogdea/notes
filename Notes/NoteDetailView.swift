@@ -11,11 +11,11 @@ struct NoteDetailView: View {
     let note: Note
 
     var body: some View {
-        Text(note.title)
-        Text(note.content)
+        Text(note.title ?? "Untitled")
+        Text(note.content ?? "No content")
     }
 }
 
 #Preview {
-    NoteDetailView(note: Note(title: "Untitled", content: "Empty"))
+    Text("Preview")
 }
