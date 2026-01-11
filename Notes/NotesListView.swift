@@ -5,9 +5,11 @@
 //  Created by Madalin Bogdea on 06.01.2026.
 //
 
+import CoreData
 import SwiftUI
 
 struct NotesListView: View {
+    @Environment(\.managedObjectContext) private var context
     @FetchRequest(sortDescriptors: [])
     private var notes: FetchedResults<Note>
 
@@ -25,10 +27,34 @@ struct NotesListView: View {
                         .foregroundStyle(.secondary)
                 }
             }
-        }.navigationTitle("Notes")
+        }
+        .navigationTitle("Notes")
+        .toolbar {
+            Button {
+                addNote()
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+    }
+
+    func addNote() {
+        let note = Note(context: context)
+
+        note.id = UUID()
+        note.title = ""
+        note.content = ""
+
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
     }
 }
 
 #Preview {
-    NotesListView()
+    NavigationStack {
+        NotesListView()
+    }
 }
