@@ -5,14 +5,35 @@
 //  Created by Madalin Bogdea on 06.01.2026.
 //
 
+import CoreData
 import SwiftUI
 
 struct NoteDetailView: View {
-    let note: Note
+    @Environment(\.managedObjectContext) private var context
+    @ObservedObject var note: Note
+
+    @State var title: String = ""
+    @State var content: String = ""
 
     var body: some View {
-        Text(note.title ?? "Untitled")
-        Text(note.content ?? "No content")
+        VStack {
+            TextField("", text: $title)
+            TextEditor(text: $content)
+        }
+        .onAppear {
+            title = note.title ?? ""
+            content = note.content ?? ""
+        }
+        .onDisappear {
+            note.title = title
+            note.content = content
+
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
